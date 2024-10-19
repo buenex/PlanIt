@@ -1,76 +1,101 @@
 <!DOCTYPE html>
 <html>
-
 <head>
-  <title>Socket.IO chat</title>
+  <meta charset="utf-8">
+  <title>Planning Poker</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
   <style>
-    body {
-      margin: 0;
-      padding-bottom: 3rem;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    .card {
+      cursor: pointer;
     }
-
-    #form {
-      background: rgba(0, 0, 0, 0.15);
-      padding: 0.25rem;
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      height: 3rem;
-      box-sizing: border-box;
-      backdrop-filter: blur(10px);
-    }
-
-    #input {
-      border: none;
-      padding: 0 1rem;
-      flex-grow: 1;
-      border-radius: 2rem;
-      margin: 0.25rem;
-    }
-
-    #input:focus {
-      outline: none;
-    }
-
-    #form>button {
-      background: #333;
-      border: none;
-      padding: 0 1rem;
-      margin: 0.25rem;
-      border-radius: 3px;
-      outline: none;
-      color: #fff;
-    }
-
-    #messages {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    #messages>li {
-      padding: 0.5rem 1rem;
-    }
-
-    #messages>li:nth-child(odd) {
-      background: #efefef;
+    .card.active {
+      background-color: #007bff !important;
+      color: #fff !important;
     }
   </style>
 </head>
-
 <body>
-  <h4 id="name">My name: </h4>
-  <ul id="messages"></ul>
-  <form id="form" action="">
-    <input id="input" autocomplete="off" /><button type="submit">Send</button>
-  </form>
-</body>
-<footer>
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="/script.js"></script>
-</footer>
+  <div class="container my-5">
+    <h1 class="mb-4">Planning Poker</h1>
 
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class="mb-4">Criar sala</h2>
+
+        <form id="create-room-form">
+          <div class="form-group">
+            <label for="room-name">Nome da sala:</label>
+            <input type="text" class="form-control" id="room-name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="room-password-c">Senha:</label>
+            <input type="password" class="form-control" id="room-password-c">
+          </div>
+
+          <div class="form-group">
+            <label for="username-c">Seu nome:</label>
+            <input type="text" class="form-control" id="username-c" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Criar</button>
+        </form>
+      </div>
+
+      <div class="col-md-6">
+        <h2 class="mb-4">Entrar em uma sala</h2>
+
+        <form id="join-room-form">
+          <div class="form-group">
+            <label for="room-id">ID da sala:</label>
+            <input type="text" class="form-control" id="room-id" required>
+          </div>
+
+          <div class="form-group">
+            <label for="room-password">Senha:</label>
+            <input type="password" class="form-control" id="room-password" required>
+          </div>
+
+          <div class="form-group">
+            <label for="username">Seu nome:</label>
+            <input type="text" class="form-control" id="username" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Entrar</button>
+        </form>
+
+        <ul id="users-list" class="list-group mt-4"></ul>
+      </div>
+    </div>
+
+    <div id="score-form" class="mt-5">
+      <h2 class="mb-4">Pontuação</h2>
+
+      <div id="score-cards" class="card-deck">
+        <div class="card">0</div>
+        <div class="card">1</div>
+        <div class="card">2</div>
+        <div class="card">3</div>
+        <div class="card">5</div>
+        <div class="card">8</div>
+        <div class="card">13</div>
+        <div class="card">21</div>
+        <div class="card">?</div>
+      </div>
+
+      <div class="mt-4">
+        <button id="start-score-button" class="btn btn-primary">Iniciar pontuação</button>
+        <button id="end-score-button" class="btn btn-danger">Encerrar pontuação</button>
+      </div>
+
+      <div id="average" class="mt-4"></div>
+    </div>
+  </div>
+
+  <script src="./socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="./script.js"></script>
+</body>
 </html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Planning Poker</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <style>
+    .card {
+      cursor: pointer;
+    }
+    .card.active {
+      background-color: #007bff !important;
+      color: #fff !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="container my-5">
+    <h1 class="mb-4">Planning Poker</h1>
+
+    <div id="score-form" class="mt-5">
+      <h2 class="mb-4">Pontuação</h2>
+
+      <div id="score-cards" class="card-deck">
+        <div class="card">0</div>
+        <div class="card">1</div>
+        <div class="card">2</div>
+        <div class="card">3</div>
+        <div class="card">5</div>
+        <div class="card">8</div>
+        <div class="card">13</div>
+        <div class="card">21</div>
+        <div class="card">?</div>
+      </div>
+
+      <h2 id="room-name"></h2>
+      <ul id="users-list" class="list-group mt-4"></ul>
+
+      <div class="mt-4">
+        <button id="start-score-button" class="btn btn-primary">Iniciar pontuação</button>
+        <button id="end-score-button" class="btn btn-danger">Encerrar pontuação</button>
+      </div>
+
+      <div id="average" class="mt-4"></div>
+    </div>
+  </div>
+
+  <script src="./socket.io/socket.io.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
